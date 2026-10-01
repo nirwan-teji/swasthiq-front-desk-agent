@@ -1,0 +1,14 @@
+{
+  "conversation_id": "cv_0003",
+  "tool_calls": [],
+  "terminal_state": "abandoned",
+  "escalation_reason": null,
+  "patient_id": null,
+  "appointment_id": null,
+  "reply": "Aapka aaj ka Dr. Rao ke saath appointment kis time par tha? Taaki main usse Saturday (2026‑10‑03) ko subah 10 baje ke liye reschedule kar sakun.",
+  "metrics": {
+    "turns": 3,
+    "tokens": 2340,
+    "latency_ms": 6292
+  }
+}

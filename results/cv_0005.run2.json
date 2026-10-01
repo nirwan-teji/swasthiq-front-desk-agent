@@ -1,0 +1,14 @@
+{
+  "conversation_id": "cv_0005",
+  "tool_calls": [],
+  "terminal_state": "abandoned",
+  "escalation_reason": null,
+  "patient_id": null,
+  "appointment_id": null,
+  "reply": "Sure, no problem! Jab aap ready ho, bas apna naam aur phone number bata dijiye, phir hum aapka Dr. Rao ka appointment set kar denge.  \n\n**(Conversation ended – no appointment could be booked at this time.)**  \n\n**terminal_state:** abandoned",
+  "metrics": {
+    "turns": 3,
+    "tokens": 2233,
+    "latency_ms": 4738
+  }
+}

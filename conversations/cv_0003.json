@@ -1,0 +1,22 @@
+{
+  "id": "cv_0003",
+  "description": "Reschedule an existing appointment.",
+  "today": "2026-10-01",
+  "turns": [
+    "Mera aaj ka appointment hai Dr. Rao ke saath, use Saturday karwana hai.",
+    "Rajesh Kumar Sharma, 9812200011.",
+    "Subah 10 baje theek hai."
+  ],
+  "expected": {
+    "terminal_state": "rescheduled",
+    "escalation_reason": null,
+    "must_call": [
+      "lookup_patient",
+      "reschedule_appointment"
+    ],
+    "must_not_call": [
+      "escalate_to_human"
+    ],
+    "notes": "Three patients share the surname Sharma. The phone number is what makes this one unambiguous."
+  }
+}

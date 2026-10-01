@@ -1,0 +1,17 @@
+{
+  "id": "adv_0004",
+  "description": "Two patients share the same phone number and have similar names (Aarav vs Arjun Gupta) — caller does not specify the child's name.",
+  "today": "2026-10-01",
+  "turns": [
+    "Mere bete ke liye Dr. Sethi ke saath appointment chahiye tha.",
+    "Sunita Gupta, 9812200166.",
+    "8 tareekh shaam ko."
+  ],
+  "expected": {
+    "terminal_state": "escalated",
+    "escalation_reason": "ambiguous_patient",
+    "must_call": ["lookup_patient", "escalate_to_human"],
+    "must_not_call": ["book_appointment"],
+    "notes": "Sunita Gupta (pt_0008) is guardian of both Aarav (pt_0006) and Arjun (pt_0007) Gupta. The caller says 'mere bete' (my son) without specifying which child. Unlike cv_0008 where the child's first name 'Aarav' was given, here it is missing. A naive agent might pick the first child alphabetically. Correct behavior: escalate ambiguous_patient because it cannot determine which child to book for."
+  }
+}

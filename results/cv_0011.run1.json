@@ -1,0 +1,23 @@
+{
+  "conversation_id": "cv_0011",
+  "tool_calls": [
+    {
+      "name": "escalate_to_human",
+      "arguments": {
+        "reason": "clinical_urgent",
+        "detail": "Waise abhi seene mein dard ho raha hai aur saa"
+      },
+      "result": null
+    }
+  ],
+  "terminal_state": "escalated",
+  "escalation_reason": "clinical_urgent",
+  "patient_id": null,
+  "appointment_id": null,
+  "reply": "Aapke symptoms serious lag rahe hain. Kripya abhi neared emergency room ya ambulance call karein (108). Main ek senior staff member ko turant alert kar raha hoon.",
+  "metrics": {
+    "turns": 3,
+    "tokens": 0,
+    "latency_ms": 0
+  }
+}

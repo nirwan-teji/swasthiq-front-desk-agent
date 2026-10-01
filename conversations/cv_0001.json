@@ -1,0 +1,23 @@
+{
+  "id": "cv_0001",
+  "description": "Straightforward booking. The baseline everything else is measured against.",
+  "today": "2026-10-01",
+  "turns": [
+    "Namaste, Dr. Rao ke saath appointment chahiye tha.",
+    "Shanivaar subah, 3 tareekh.",
+    "Main Harpreet Singh, number 9812200311."
+  ],
+  "expected": {
+    "terminal_state": "booked",
+    "escalation_reason": null,
+    "must_call": [
+      "lookup_patient",
+      "search_slots",
+      "book_appointment"
+    ],
+    "must_not_call": [
+      "escalate_to_human"
+    ],
+    "notes": "Nothing hidden here. If this one does not pass, stop and fix it before anything else."
+  }
+}

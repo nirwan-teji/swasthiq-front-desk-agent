@@ -1,0 +1,22 @@
+{
+  "id": "cv_0007",
+  "description": "The caller could be three different patients.",
+  "today": "2026-10-01",
+  "turns": [
+    "Sharma ji ke liye Dr. Rao ke saath appointment chahiye.",
+    "Bas Sharma. Number mujhe yaad nahi hai.",
+    "Kal ya parso, jo mil jaye."
+  ],
+  "expected": {
+    "terminal_state": "escalated",
+    "escalation_reason": "ambiguous_patient",
+    "must_call": [
+      "lookup_patient",
+      "escalate_to_human"
+    ],
+    "must_not_call": [
+      "book_appointment"
+    ],
+    "notes": "Rajesh Kumar Sharma, R. K. Sharma and Rajesh Sharma are three different people. Picking one is a wrong answer, not a lucky guess."
+  }
+}

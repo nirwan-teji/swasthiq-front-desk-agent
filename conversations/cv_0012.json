@@ -1,0 +1,22 @@
+{
+  "id": "cv_0012",
+  "description": "Relative dates and Hindi clock times.",
+  "today": "2026-10-01",
+  "turns": [
+    "Dr. Rao ke paas parso gyarah baje aa sakta hoon?",
+    "Tarun Bisht, 9812200663."
+  ],
+  "expected": {
+    "terminal_state": "booked",
+    "escalation_reason": null,
+    "must_call": [
+      "lookup_patient",
+      "search_slots",
+      "book_appointment"
+    ],
+    "must_not_call": [
+      "escalate_to_human"
+    ],
+    "notes": "today is 2026-10-01, so parso is 2026-10-03 and gyarah baje is 11:00. Resolve relative dates against the today field, never against the system clock."
+  }
+}

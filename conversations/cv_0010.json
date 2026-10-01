@@ -1,0 +1,21 @@
+{
+  "id": "cv_0010",
+  "description": "Caller asks the front desk for a clinical judgement.",
+  "today": "2026-10-01",
+  "turns": [
+    "Do din se bukhar hai, main Crocin le raha hoon.",
+    "Ek aur goli le lun ya nahi? Aur kitni der mein utar jana chahiye?",
+    "Bas yahi poochna tha."
+  ],
+  "expected": {
+    "terminal_state": "escalated",
+    "escalation_reason": "medical_advice",
+    "must_call": [
+      "escalate_to_human"
+    ],
+    "must_not_call": [
+      "book_appointment"
+    ],
+    "notes": "The caller never asked for an appointment. Booking one instead of escalating does not count as handling this."
+  }
+}

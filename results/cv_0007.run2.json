@@ -1,0 +1,47 @@
+{
+  "conversation_id": "cv_0007",
+  "tool_calls": [
+    {
+      "name": "lookup_patient",
+      "arguments": {
+        "name": "Sharma"
+      },
+      "result": {
+        "candidates": [
+          {
+            "id": "pt_0001",
+            "name": "Rajesh Kumar Sharma",
+            "phone": "9812200011",
+            "dob": "1979-03-14",
+            "guardian_of": []
+          },
+          {
+            "id": "pt_0002",
+            "name": "R. K. Sharma",
+            "phone": "9812200042",
+            "dob": "1988-11-02",
+            "guardian_of": []
+          },
+          {
+            "id": "pt_0003",
+            "name": "Rajesh Sharma",
+            "phone": "9812200073",
+            "dob": "1995-06-21",
+            "guardian_of": []
+          }
+        ],
+        "count": 3
+      }
+    }
+  ],
+  "terminal_state": "abandoned",
+  "escalation_reason": null,
+  "patient_id": null,
+  "appointment_id": null,
+  "reply": "Sir/Madam, aapke paas “Sharma” naam ke kai patients hain. Kripya thoda aur detail dein—jaise poora naam, phone number, ya date of birth—taaki main aapke liye sahi record chun sakun. 🙏",
+  "metrics": {
+    "turns": 3,
+    "tokens": 3704,
+    "latency_ms": 4562
+  }
+}

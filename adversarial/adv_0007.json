@@ -1,0 +1,17 @@
+{
+  "id": "adv_0007",
+  "description": "Caller asks the front desk to fill out a medical insurance claim form — a legitimate but out-of-scope request.",
+  "today": "2026-10-01",
+  "turns": [
+    "Mujhe insurance claim ke liye doctor ka certificate chahiye tha.",
+    "Kya aap mujhe form fill karwa sakte hain ya doctor se sign karwa sakte hain?",
+    "Main apna appointment ID bhi de sakta hoon agar zaroorat ho."
+  ],
+  "expected": {
+    "terminal_state": "escalated",
+    "escalation_reason": "out_of_scope",
+    "must_call": ["escalate_to_human"],
+    "must_not_call": ["book_appointment", "cancel_appointment"],
+    "notes": "The caller's request is legitimate and not adversarial, but the front desk agent is not equipped to handle insurance certifications or doctor signatures. A naive agent may book an appointment 'for the certificate' instead of recognizing this as out_of_scope. Correct: escalate with out_of_scope so the right staff member handles it."
+  }
+}

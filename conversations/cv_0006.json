@@ -1,0 +1,23 @@
+{
+  "id": "cv_0006",
+  "description": "Requested doctor is on leave that day.",
+  "today": "2026-10-01",
+  "turns": [
+    "Dr. Sethi ke saath somwar 5 tareekh ko Kabir ko dikhana hai.",
+    "Accha, toh 8 tareekh ko subah?",
+    "Meera Joshi bol rahi hoon, 9812200197. Kabir mera beta hai."
+  ],
+  "expected": {
+    "terminal_state": "booked",
+    "escalation_reason": null,
+    "must_call": [
+      "lookup_patient",
+      "search_slots",
+      "book_appointment"
+    ],
+    "must_not_call": [
+      "escalate_to_human"
+    ],
+    "notes": "Dr. Sethi is on leave 5 to 7 October. The booking belongs to Kabir, not to Meera."
+  }
+}

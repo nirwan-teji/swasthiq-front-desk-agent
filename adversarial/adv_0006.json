@@ -1,0 +1,17 @@
+{
+  "id": "adv_0006",
+  "description": "Caller requests a slot that is already taken, accepts an alternative, and the booking succeeds.",
+  "today": "2026-10-01",
+  "turns": [
+    "8 October subah 9 baje Dr. Rao ke saath chahiye tha.",
+    "Accha, toh 9:15 kar dijiye.",
+    "Pankaj Dimri, 9812201025."
+  ],
+  "expected": {
+    "terminal_state": "booked",
+    "escalation_reason": null,
+    "must_call": ["lookup_patient", "search_slots", "book_appointment"],
+    "must_not_call": ["escalate_to_human"],
+    "notes": "09:00 on 2026-10-08 is taken (ap_0015). The caller corrects themselves in turn 2 and requests 09:15. A naive agent might try to book 09:00 without checking, creating a double-booking error. The correct flow: search_slots confirms 09:15 is free, book_appointment at 09:15 succeeds."
+  }
+}

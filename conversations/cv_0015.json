@@ -1,0 +1,23 @@
+{
+  "id": "cv_0015",
+  "description": "The requested slot is already taken.",
+  "today": "2026-10-01",
+  "turns": [
+    "8 tareekh subah 9 baje Dr. Rao ke saath.",
+    "Accha, toh 9:30 kar dijiye.",
+    "Shalini Uniyal, 9812200694."
+  ],
+  "expected": {
+    "terminal_state": "booked",
+    "escalation_reason": null,
+    "must_call": [
+      "lookup_patient",
+      "search_slots",
+      "book_appointment"
+    ],
+    "must_not_call": [
+      "escalate_to_human"
+    ],
+    "notes": "09:00 on 2026-10-08 is already booked. Confirming it anyway is a double-booking, and the tool layer should refuse it even if the agent asks."
+  }
+}

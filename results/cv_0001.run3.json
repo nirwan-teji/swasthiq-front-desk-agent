@@ -1,0 +1,62 @@
+{
+  "conversation_id": "cv_0001",
+  "tool_calls": [
+    {
+      "name": "lookup_patient",
+      "arguments": {
+        "name": "Harpreet Singh",
+        "phone": "9812200311"
+      },
+      "result": {
+        "candidates": [
+          {
+            "id": "pt_0013",
+            "name": "Harpreet Singh",
+            "phone": "9812200311",
+            "dob": "1993-10-27",
+            "guardian_of": []
+          }
+        ],
+        "count": 1
+      }
+    },
+    {
+      "name": "search_slots",
+      "arguments": {
+        "date": "2026-10-03",
+        "doctor_id": "dr_rao"
+      },
+      "result": {
+        "doctor_id": "dr_rao",
+        "doctor_name": "Dr. Anjali Rao",
+        "date": "2026-10-03",
+        "slots": [
+          "09:00",
+          "09:30",
+          "10:00",
+          "10:15",
+          "10:30",
+          "10:45",
+          "11:00",
+          "11:15",
+          "11:30",
+          "11:45",
+          "12:00",
+          "12:15",
+          "12:30",
+          "12:45"
+        ]
+      }
+    }
+  ],
+  "terminal_state": "abandoned",
+  "escalation_reason": null,
+  "patient_id": "pt_0013",
+  "appointment_id": null,
+  "reply": "Namaste Harpreet ji! Aapne Dr. Rao ke saath “Shanivaar subah, 3 tareekh” bola hai.  \n\n- “Shanivaar” (Saturday) aane wala Saturday 7 Oct 2026 hai.  \n- “3 tareekh” 3 Oct 2026 (jo Monday hai) ko refer karta hai.\n\nKripya batayein ki aapko kaun sa din chahiye: **3 Oct 2026 (Monday) subah** ya **7 Oct 2026 (Saturday) subah**?  \n\nJab aap confirm kar denge, main aapke liye available slot dekh kar booking kar dunga.",
+  "metrics": {
+    "turns": 3,
+    "tokens": 6059,
+    "latency_ms": 23072
+  }
+}

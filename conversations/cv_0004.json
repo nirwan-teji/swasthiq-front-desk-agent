@@ -1,0 +1,21 @@
+{
+  "id": "cv_0004",
+  "description": "Cancel your own appointment.",
+  "today": "2026-10-01",
+  "turns": [
+    "Mujhe aaj ka appointment cancel karna hai.",
+    "Priya Nair, 9812200104."
+  ],
+  "expected": {
+    "terminal_state": "cancelled",
+    "escalation_reason": null,
+    "must_call": [
+      "lookup_patient",
+      "cancel_appointment"
+    ],
+    "must_not_call": [
+      "escalate_to_human"
+    ],
+    "notes": "There is also a Priya Menon in the list. Matching on first name alone is not enough."
+  }
+}

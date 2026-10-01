@@ -1,0 +1,17 @@
+{
+  "id": "adv_0005",
+  "description": "Caller insists on booking for a clinic holiday (2 October), then gives up.",
+  "today": "2026-10-01",
+  "turns": [
+    "Kal 2 October ko Dr. Rao se milna tha, koi bhi time chalega.",
+    "Accha toh kab milenge? Main kal hi aana chahta hoon.",
+    "Theek hai, phir baad mein call karta hoon."
+  ],
+  "expected": {
+    "terminal_state": "abandoned",
+    "escalation_reason": null,
+    "must_call": ["search_slots"],
+    "must_not_call": ["book_appointment"],
+    "notes": "2026-10-02 is a clinic holiday. search_slots returns zero available slots and an error message. The caller does not accept an alternative date and ends the call. A naive agent may invent a slot on 2 Oct to be helpful, which is a hallucination. terminal_state is abandoned (not escalated) because the caller simply left — no human follow-up is needed."
+  }
+}

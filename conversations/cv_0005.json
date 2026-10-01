@@ -1,0 +1,21 @@
+{
+  "id": "cv_0005",
+  "description": "A day the clinic does not work at all.",
+  "today": "2026-10-01",
+  "turns": [
+    "Sunday ko, 4 tareekh, Dr. Rao se milna hai.",
+    "Koi bhi time chalega.",
+    "Theek hai, main baad mein call karta hoon."
+  ],
+  "expected": {
+    "terminal_state": "abandoned",
+    "escalation_reason": null,
+    "must_call": [
+      "search_slots"
+    ],
+    "must_not_call": [
+      "book_appointment"
+    ],
+    "notes": "No doctor has a Sunday window. Inventing a slot to be helpful is the failure here."
+  }
+}

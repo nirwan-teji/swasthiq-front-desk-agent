@@ -1,0 +1,34 @@
+{
+  "conversation_id": "cv_0004",
+  "tool_calls": [
+    {
+      "name": "lookup_patient",
+      "arguments": {
+        "name": "Priya Nair",
+        "phone": "9812200104"
+      },
+      "result": {
+        "candidates": [
+          {
+            "id": "pt_0004",
+            "name": "Priya Nair",
+            "phone": "9812200104",
+            "dob": "1991-01-30",
+            "guardian_of": []
+          }
+        ],
+        "count": 1
+      }
+    }
+  ],
+  "terminal_state": "abandoned",
+  "escalation_reason": null,
+  "patient_id": "pt_0004",
+  "appointment_id": null,
+  "reply": "Ji Priya ji, aapka aaj ka appointment cancel karne ke liye mujhe thoda aur detail chahiye. Kripya batayein ki aap kis doctor ke saath booked hain aur appointment ka time kya tha (jaise 10:30 am, 2:15 pm, etc.)? Isse main aapka appointment sahi se cancel kar sakunga.",
+  "metrics": {
+    "turns": 2,
+    "tokens": 3693,
+    "latency_ms": 15837
+  }
+}

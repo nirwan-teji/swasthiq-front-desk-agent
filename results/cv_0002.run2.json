@@ -1,0 +1,72 @@
+{
+  "conversation_id": "cv_0002",
+  "tool_calls": [
+    {
+      "name": "lookup_patient",
+      "arguments": {
+        "name": "Neha Bhatt",
+        "phone": "9812200404"
+      },
+      "result": {
+        "candidates": [
+          {
+            "id": "pt_0016",
+            "name": "Neha Bhatt",
+            "phone": "9812200404",
+            "dob": "1989-07-07",
+            "guardian_of": []
+          }
+        ],
+        "count": 1
+      }
+    },
+    {
+      "name": "search_slots",
+      "arguments": {
+        "date": "2026-10-07",
+        "doctor_id": "dr_rao"
+      },
+      "result": {
+        "doctor_id": "dr_rao",
+        "doctor_name": "Dr. Anjali Rao",
+        "date": "2026-10-07",
+        "slots": [
+          "09:00",
+          "09:15",
+          "09:30",
+          "09:45",
+          "10:00",
+          "10:15",
+          "10:30",
+          "10:45",
+          "11:00",
+          "11:15",
+          "11:30",
+          "11:45",
+          "16:00",
+          "16:15",
+          "16:30",
+          "16:45",
+          "17:00",
+          "17:15",
+          "17:30",
+          "17:45",
+          "18:00",
+          "18:15",
+          "18:30",
+          "18:45"
+        ]
+      }
+    }
+  ],
+  "terminal_state": "abandoned",
+  "escalation_reason": null,
+  "patient_id": "pt_0016",
+  "appointment_id": null,
+  "reply": "Ji Neha ji, aapke liye Dr. Rao ke saath 7 October (budhwar) subah ke slots available hain:\n\n09:00 – 09:15 – 09:30 – 09:45 – 10:00 – 10:15 – 10:30 – 10:45 – 11:00 – 11:15 – 11:30 – 11:45  \n\nAapko kaunsa samay theek rahega? (Aap koi bhi upar ke samay chun sakti hain.)",
+  "metrics": {
+    "turns": 3,
+    "tokens": 6187,
+    "latency_ms": 10158
+  }
+}

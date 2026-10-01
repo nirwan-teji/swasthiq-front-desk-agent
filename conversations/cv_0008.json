@@ -1,0 +1,23 @@
+{
+  "id": "cv_0008",
+  "description": "A guardian booking for one of two identical-looking children.",
+  "today": "2026-10-01",
+  "turns": [
+    "Mere bete Aarav ke liye Dr. Sethi ke saath appointment chahiye.",
+    "Sunita Gupta, 9812200166.",
+    "8 tareekh ko shaam ko."
+  ],
+  "expected": {
+    "terminal_state": "booked",
+    "escalation_reason": null,
+    "must_call": [
+      "lookup_patient",
+      "search_slots",
+      "book_appointment"
+    ],
+    "must_not_call": [
+      "escalate_to_human"
+    ],
+    "notes": "Aarav and Arjun Gupta share a surname, a date of birth and a phone number. Only the first name separates them. Sunita is a listed guardian for both, so she is authorised."
+  }
+}

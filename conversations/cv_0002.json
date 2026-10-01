@@ -1,0 +1,23 @@
+{
+  "id": "cv_0002",
+  "description": "Caller changes their mind mid-sentence.",
+  "today": "2026-10-01",
+  "turns": [
+    "Dr. Rao ke saath appointment karwana hai.",
+    "Mangalwar 6 tareekh ko... nahi nahi, budhwar kar dijiye, 7 tareekh.",
+    "Neha Bhatt, 9812200404. Subah ka time theek rahega."
+  ],
+  "expected": {
+    "terminal_state": "booked",
+    "escalation_reason": null,
+    "must_call": [
+      "lookup_patient",
+      "search_slots",
+      "book_appointment"
+    ],
+    "must_not_call": [
+      "escalate_to_human"
+    ],
+    "notes": "The correction lands inside one turn. The booking must be on 2026-10-07, not 2026-10-06."
+  }
+}

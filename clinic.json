@@ -1,0 +1,656 @@
+{
+  "clinic": {
+    "id": "cl_sunrise",
+    "name": "Sunrise Clinic",
+    "city": "Dehradun",
+    "timezone": "Asia/Kolkata",
+    "slot_minutes": 15,
+    "reference_date": "2026-10-01"
+  },
+  "doctors": [
+    {
+      "id": "dr_rao",
+      "name": "Dr. Anjali Rao",
+      "speciality": "General Physician",
+      "windows": [
+        {
+          "day": "Mon",
+          "start": "09:00",
+          "end": "12:00"
+        },
+        {
+          "day": "Mon",
+          "start": "11:45",
+          "end": "15:00"
+        },
+        {
+          "day": "Tue",
+          "start": "09:00",
+          "end": "12:00"
+        },
+        {
+          "day": "Tue",
+          "start": "16:00",
+          "end": "19:00"
+        },
+        {
+          "day": "Wed",
+          "start": "09:00",
+          "end": "12:00"
+        },
+        {
+          "day": "Wed",
+          "start": "16:00",
+          "end": "19:00"
+        },
+        {
+          "day": "Thu",
+          "start": "09:00",
+          "end": "12:00"
+        },
+        {
+          "day": "Thu",
+          "start": "16:00",
+          "end": "19:00"
+        },
+        {
+          "day": "Fri",
+          "start": "09:00",
+          "end": "12:00"
+        },
+        {
+          "day": "Fri",
+          "start": "16:00",
+          "end": "19:00"
+        },
+        {
+          "day": "Sat",
+          "start": "09:00",
+          "end": "13:00"
+        }
+      ],
+      "leave_dates": [
+        "2026-10-09"
+      ]
+    },
+    {
+      "id": "dr_sethi",
+      "name": "Dr. Vikram Sethi",
+      "speciality": "Paediatrics",
+      "windows": [
+        {
+          "day": "Mon",
+          "start": "10:00",
+          "end": "13:00"
+        },
+        {
+          "day": "Mon",
+          "start": "17:00",
+          "end": "20:00"
+        },
+        {
+          "day": "Tue",
+          "start": "10:00",
+          "end": "13:00"
+        },
+        {
+          "day": "Tue",
+          "start": "17:00",
+          "end": "20:00"
+        },
+        {
+          "day": "Wed",
+          "start": "10:00",
+          "end": "13:00"
+        },
+        {
+          "day": "Thu",
+          "start": "10:00",
+          "end": "13:00"
+        },
+        {
+          "day": "Thu",
+          "start": "17:00",
+          "end": "20:00"
+        },
+        {
+          "day": "Fri",
+          "start": "10:00",
+          "end": "13:00"
+        },
+        {
+          "day": "Fri",
+          "start": "17:00",
+          "end": "20:00"
+        },
+        {
+          "day": "Sat",
+          "start": "10:00",
+          "end": "14:00"
+        }
+      ],
+      "leave_dates": [
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07"
+      ]
+    }
+  ],
+  "holidays": [
+    "2026-10-02"
+  ],
+  "patients": [
+    {
+      "id": "pt_0001",
+      "name": "Rajesh Kumar Sharma",
+      "phone": "9812200011",
+      "dob": "1979-03-14",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0002",
+      "name": "R. K. Sharma",
+      "phone": "9812200042",
+      "dob": "1988-11-02",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0003",
+      "name": "Rajesh Sharma",
+      "phone": "9812200073",
+      "dob": "1995-06-21",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0004",
+      "name": "Priya Nair",
+      "phone": "9812200104",
+      "dob": "1991-01-30",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0005",
+      "name": "Priya Menon",
+      "phone": "9812200135",
+      "dob": "1986-09-09",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0006",
+      "name": "Aarav Gupta",
+      "phone": "9812200166",
+      "dob": "2014-04-18",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0007",
+      "name": "Arjun Gupta",
+      "phone": "9812200166",
+      "dob": "2014-04-18",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0008",
+      "name": "Sunita Gupta",
+      "phone": "9812200166",
+      "dob": "1985-07-25",
+      "guardian_of": [
+        "pt_0006",
+        "pt_0007"
+      ]
+    },
+    {
+      "id": "pt_0009",
+      "name": "Meera Joshi",
+      "phone": "9812200197",
+      "dob": "1990-12-05",
+      "guardian_of": [
+        "pt_0031"
+      ]
+    },
+    {
+      "id": "pt_0010",
+      "name": "Imran Qureshi",
+      "phone": "9812200228",
+      "dob": "1982-02-17",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0011",
+      "name": "Imraan Quraishi",
+      "phone": "9812200259",
+      "dob": "1974-08-08",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0012",
+      "name": "Lakshmi Iyer",
+      "phone": "9812200280",
+      "dob": "1968-05-11",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0013",
+      "name": "Harpreet Singh",
+      "phone": "9812200311",
+      "dob": "1993-10-27",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0014",
+      "name": "Harpreet Kaur",
+      "phone": "9812200342",
+      "dob": "1997-03-03",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0015",
+      "name": "Deepak Chauhan",
+      "phone": "9812200373",
+      "dob": "1980-01-19",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0016",
+      "name": "Neha Bhatt",
+      "phone": "9812200404",
+      "dob": "1989-07-07",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0017",
+      "name": "Ritu Aggarwal",
+      "phone": "9812200435",
+      "dob": "1976-11-23",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0018",
+      "name": "Sanjay Rawat",
+      "phone": "9812200466",
+      "dob": "1971-04-02",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0019",
+      "name": "Kavita Rawat",
+      "phone": "9812200466",
+      "dob": "1975-08-16",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0020",
+      "name": "Mohit Negi",
+      "phone": "9812200497",
+      "dob": "1998-09-29",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0021",
+      "name": "Anita Thapa",
+      "phone": "9812200518",
+      "dob": "1984-06-13",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0022",
+      "name": "Vikas Dobhal",
+      "phone": "9812200549",
+      "dob": "1992-12-24",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0023",
+      "name": "Shabnam Ali",
+      "phone": "9812200570",
+      "dob": "1987-02-28",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0024",
+      "name": "Gurmeet Bedi",
+      "phone": "9812200601",
+      "dob": "1965-10-10",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0025",
+      "name": "Pooja Semwal",
+      "phone": "9812200632",
+      "dob": "1994-05-05",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0026",
+      "name": "Tarun Bisht",
+      "phone": "9812200663",
+      "dob": "1990-03-31",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0027",
+      "name": "Shalini Uniyal",
+      "phone": "9812200694",
+      "dob": "1983-08-21",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0028",
+      "name": "Naveen Panwar",
+      "phone": "9812200725",
+      "dob": "1978-01-07",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0029",
+      "name": "Rekha Nautiyal",
+      "phone": "9812200756",
+      "dob": "1972-09-15",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0030",
+      "name": "Yash Kandwal",
+      "phone": "9812200787",
+      "dob": "1999-11-11",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0031",
+      "name": "Kabir Joshi",
+      "phone": "9812200197",
+      "dob": "2020-02-14",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0032",
+      "name": "Divya Rana",
+      "phone": "9812200818",
+      "dob": "1996-07-19",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0033",
+      "name": "Ashok Pundir",
+      "phone": "9812200849",
+      "dob": "1963-12-01",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0034",
+      "name": "Sneha Kukreti",
+      "phone": "9812200870",
+      "dob": "1991-04-26",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0035",
+      "name": "Farhan Siddiqui",
+      "phone": "9812200901",
+      "dob": "1985-10-04",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0036",
+      "name": "Jyoti Bahuguna",
+      "phone": "9812200932",
+      "dob": "1979-06-30",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0037",
+      "name": "Rohit Chamoli",
+      "phone": "9812200963",
+      "dob": "2001-03-12",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0038",
+      "name": "Anjum Khan",
+      "phone": "9812200994",
+      "dob": "1988-08-18",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0039",
+      "name": "Pankaj Dimri",
+      "phone": "9812201025",
+      "dob": "1974-02-09",
+      "guardian_of": []
+    },
+    {
+      "id": "pt_0040",
+      "name": "Suman Ghildiyal",
+      "phone": "9812201056",
+      "dob": "1981-05-23",
+      "guardian_of": []
+    }
+  ],
+  "appointments": [
+    {
+      "id": "ap_0001",
+      "patient_id": "pt_0001",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-01",
+      "start": "09:30",
+      "end": "09:45",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0002",
+      "patient_id": "pt_0004",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-01",
+      "start": "10:00",
+      "end": "10:15",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0003",
+      "patient_id": "pt_0012",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-01",
+      "start": "17:00",
+      "end": "17:15",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0004",
+      "patient_id": "pt_0031",
+      "doctor_id": "dr_sethi",
+      "date": "2026-10-01",
+      "start": "10:30",
+      "end": "10:45",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0005",
+      "patient_id": "pt_0006",
+      "doctor_id": "dr_sethi",
+      "date": "2026-10-01",
+      "start": "11:00",
+      "end": "11:15",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0006",
+      "patient_id": "pt_0016",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-03",
+      "start": "09:15",
+      "end": "09:30",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0007",
+      "patient_id": "pt_0020",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-03",
+      "start": "09:45",
+      "end": "10:00",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0008",
+      "patient_id": "pt_0024",
+      "doctor_id": "dr_sethi",
+      "date": "2026-10-03",
+      "start": "10:15",
+      "end": "10:30",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0009",
+      "patient_id": "pt_0002",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-05",
+      "start": "09:00",
+      "end": "09:15",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0010",
+      "patient_id": "pt_0013",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-05",
+      "start": "13:00",
+      "end": "13:15",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0011",
+      "patient_id": "pt_0017",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-06",
+      "start": "09:30",
+      "end": "09:45",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0012",
+      "patient_id": "pt_0021",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-06",
+      "start": "16:15",
+      "end": "16:30",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0013",
+      "patient_id": "pt_0007",
+      "doctor_id": "dr_sethi",
+      "date": "2026-10-08",
+      "start": "10:00",
+      "end": "10:15",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0014",
+      "patient_id": "pt_0025",
+      "doctor_id": "dr_sethi",
+      "date": "2026-10-08",
+      "start": "17:30",
+      "end": "17:45",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0015",
+      "patient_id": "pt_0029",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-08",
+      "start": "09:00",
+      "end": "09:15",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0016",
+      "patient_id": "pt_0033",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-08",
+      "start": "16:00",
+      "end": "16:15",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0017",
+      "patient_id": "pt_0003",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-08",
+      "start": "16:15",
+      "end": "16:30",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0018",
+      "patient_id": "pt_0037",
+      "doctor_id": "dr_sethi",
+      "date": "2026-10-09",
+      "start": "10:45",
+      "end": "11:00",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0019",
+      "patient_id": "pt_0018",
+      "doctor_id": "dr_sethi",
+      "date": "2026-10-10",
+      "start": "10:00",
+      "end": "10:15",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0020",
+      "patient_id": "pt_0026",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-10",
+      "start": "09:30",
+      "end": "09:45",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0021",
+      "patient_id": "pt_0030",
+      "doctor_id": "dr_sethi",
+      "date": "2026-10-12",
+      "start": "17:00",
+      "end": "17:15",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0022",
+      "patient_id": "pt_0035",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-13",
+      "start": "16:45",
+      "end": "17:00",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0023",
+      "patient_id": "pt_0038",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-14",
+      "start": "09:15",
+      "end": "09:30",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0024",
+      "patient_id": "pt_0009",
+      "doctor_id": "dr_sethi",
+      "date": "2026-10-15",
+      "start": "11:15",
+      "end": "11:30",
+      "status": "booked"
+    },
+    {
+      "id": "ap_0025",
+      "patient_id": "pt_0040",
+      "doctor_id": "dr_rao",
+      "date": "2026-10-15",
+      "start": "17:15",
+      "end": "17:30",
+      "status": "booked"
+    }
+  ]
+}

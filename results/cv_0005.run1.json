@@ -1,0 +1,14 @@
+{
+  "conversation_id": "cv_0005",
+  "tool_calls": [],
+  "terminal_state": "abandoned",
+  "escalation_reason": null,
+  "patient_id": null,
+  "appointment_id": null,
+  "reply": "Sure, no problem! Jab aap ready ho, bas humein apna naam, phone number aur preferred date ya doctor bata dena. Hum turant slot check karke aapka appointment book kar denge.  \n\nTake care and call back anytime!  \n\n**terminal_state:** abandoned",
+  "metrics": {
+    "turns": 3,
+    "tokens": 2226,
+    "latency_ms": 3567
+  }
+}

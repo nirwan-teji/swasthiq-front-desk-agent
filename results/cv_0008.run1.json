@@ -1,0 +1,45 @@
+{
+  "conversation_id": "cv_0008",
+  "tool_calls": [
+    {
+      "name": "lookup_patient",
+      "arguments": {
+        "name": "Aarav"
+      },
+      "result": {
+        "candidates": [
+          {
+            "id": "pt_0006",
+            "name": "Aarav Gupta",
+            "phone": "9812200166",
+            "dob": "2014-04-18",
+            "guardian_of": []
+          }
+        ],
+        "count": 1
+      }
+    },
+    {
+      "name": "escalate_to_human",
+      "arguments": {
+        "detail": "Caller Sunita Gupta is not listed as guardian for patient Aarav Gupta",
+        "reason": "not_authorised"
+      },
+      "result": {
+        "escalated": true,
+        "reason": "not_authorised",
+        "detail": "Caller Sunita Gupta is not listed as guardian for patient Aarav Gupta"
+      }
+    }
+  ],
+  "terminal_state": "escalated",
+  "escalation_reason": "not_authorised",
+  "patient_id": "pt_0006",
+  "appointment_id": null,
+  "reply": "I’m sorry, but I can’t process this request. I can only help with appointments for patients you’re authorized to manage. If you need further assistance, please contact the clinic directly.",
+  "metrics": {
+    "turns": 3,
+    "tokens": 5598,
+    "latency_ms": 7692
+  }
+}

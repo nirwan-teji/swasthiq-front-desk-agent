@@ -1,0 +1,21 @@
+{
+  "id": "cv_0013",
+  "description": "The caller never gives anything usable.",
+  "today": "2026-10-01",
+  "turns": [
+    "Hello?",
+    "Haan ji...",
+    "Arre... [background noise] ... haan theek hai."
+  ],
+  "expected": {
+    "terminal_state": "abandoned",
+    "escalation_reason": null,
+    "must_call": [],
+    "must_not_call": [
+      "book_appointment",
+      "cancel_appointment",
+      "reschedule_appointment"
+    ],
+    "notes": "Nothing happened and nothing needs a human. Escalating every empty call would drown the handoff queue."
+  }
+}
