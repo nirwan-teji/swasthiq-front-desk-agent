@@ -883,13 +883,13 @@ body {
 .modal-header h3 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-main);
 }
 
 .btn-close {
   background: none;
   border: none;
-  color: var(--text-muted);
+  color: var(--text-dim);
   font-size: 1.25rem;
   cursor: pointer;
 }
@@ -902,7 +902,7 @@ body {
   display: block;
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--text-main);
   margin-bottom: 0.4rem;
 }
 
@@ -912,9 +912,21 @@ body {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 0.65rem 0.85rem;
-  color: #fff;
+  color: var(--text-main);
+  color-scheme: light;
   font-family: var(--font-sans);
   font-size: 0.9rem;
+}
+
+.form-select option {
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-dim);
+  opacity: 1;
 }
 
 .form-select:focus, .form-input:focus, .form-textarea:focus {
