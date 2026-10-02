@@ -1,5 +1,8 @@
 import { AgentRunRecord, HandoffStats } from '../types';
 
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+const apiUrl = (path: string) => `${API_BASE_URL}${path}`;
+
 // Dashboard data is always calculated by the backend from actual runs.
 export const INITIAL_STATS: HandoffStats = {
   total_conversations: 0,
@@ -25,7 +28,7 @@ function normalizeRecord(record: any): AgentRunRecord {
 
 export async function fetchStats(): Promise<HandoffStats> {
   try {
-    const res = await fetch('/api/conversations/stats');
+    const res = await fetch(apiUrl('/api/conversations/stats'));
     if (res.ok) return await res.json();
   } catch {
     // Keep the zero state while the backend is starting.
@@ -35,7 +38,7 @@ export async function fetchStats(): Promise<HandoffStats> {
 
 export async function fetchConversations(): Promise<AgentRunRecord[]> {
   try {
-    const res = await fetch('/api/conversations');
+    const res = await fetch(apiUrl('/api/conversations'));
     if (res.ok) {
       const data = await res.json();
       const conversations = Array.isArray(data) ? data : data.conversations;
@@ -53,7 +56,7 @@ export async function fetchConversations(): Promise<AgentRunRecord[]> {
 
 export async function fetchConversationDetail(id: string): Promise<AgentRunRecord | null> {
   try {
-    const res = await fetch(`/api/conversations/${encodeURIComponent(id)}`);
+    const res = await fetch(apiUrl(`/api/conversations/${encodeURIComponent(id)}`));
     if (res.ok) return normalizeRecord(await res.json());
   } catch {
     // The caller receives a not-found state in the UI.
@@ -63,7 +66,7 @@ export async function fetchConversationDetail(id: string): Promise<AgentRunRecor
 
 export async function resolveHandoff(id: string): Promise<boolean> {
   try {
-    const res = await fetch(`/api/conversations/${encodeURIComponent(id)}/resolve`, {
+    const res = await fetch(apiUrl(`/api/conversations/${encodeURIComponent(id)}/resolve`), {
       method: 'POST',
     });
     return res.ok;
@@ -77,7 +80,7 @@ export async function runAgentSimulation(payload: {
   today: string;
   turns: string[];
 }): Promise<any> {
-  const res = await fetch('/agent/run', {
+  const res = await fetch(apiUrl('/agent/run'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),

@@ -6,12 +6,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
+COPY backend/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app/ ./app/
-COPY tests/ ./tests/
-COPY ../clinic.json /clinic.json
+COPY backend/app/ ./app/
+COPY backend/tests/ ./tests/
+COPY clinic.json /clinic.json
 
 EXPOSE 8000
 
