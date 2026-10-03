@@ -1,14 +1,14 @@
 # SwasthiQ Clinic Front Desk Agent — Architectural Decisions & Ambiguity Log
 
 > **Context**: SDE Screening Assignment for Kaagazy Technologies (SwasthiQ).  
-> **Review Scope**: This document logs every non-obvious design decision, edge-case ambiguity discovered in `clinic.json` and starter conversation scripts, and the exact tradeoffs made to achieve 100% safety, determinism, and correctness.
+> **Review Scope**: This document logs every non-obvious design decision, edge-case ambiguity discovered in `clinic.json` and starter conversation scripts, and the exact tradeoffs made for safety, repeatability, and correctness.
 
 ---
 
 ## 1. Safety Architecture: Two-Tier Defense vs. Pure Prompting
 
 ### The Decision:
-We implemented an infallible two-tier safety architecture:
+We implemented a two-tier safety architecture with a deterministic boundary for the covered emergency patterns:
 1. **Tier 1 (Deterministic Regex Pre-Screen)**: Intercepts clinical emergencies (chest pain, shortness of breath, numbness, uncontrolled bleeding), medical advice requests, and prompt injections before the LLM or any database tool is called.
 2. **Tier 2 (Agentic Prompt & Tool Constraints)**: If clean, the LLM operates with strict tool calling where clinical emergencies and unauthorized proxy actions are reinforced with explicit instructions.
 
@@ -84,3 +84,29 @@ Per the assignment requirements: *"A slot cannot be double-booked. Two conversat
 ### Zero-Hallucination Validation:
 - The orchestrator validates that every `patient_id` and `appointment_id` present in `AgentResponse` was explicitly returned by a prior tool call in that session. Hallucinated IDs are impossible.
 - All terminal states and escalation reasons are validated against strict Pydantic schemas and `schema.md` enums.
+
+## 6. Mutation authorization and malformed tool input
+
+Appointment IDs are not authorization credentials. `reschedule_appointment` and
+`cancel_appointment` therefore require the patient ID returned by a successful
+`lookup_patient` call and compare it with the appointment owner while holding the
+mutation lock. A mismatch returns an actionable error and leaves the appointment
+unchanged. The agent is instructed to escalate third-party requests instead of
+trying a mutation.
+
+Dates, times, and required identifiers are validated at the tool boundary. Invalid
+values return specific errors such as `Invalid date 'tomorrow'. Use YYYY-MM-DD`
+rather than allowing `datetime` exceptions to become generic HTTP 500 responses.
+Malformed JSON tool arguments are also returned to the model as explicit tool
+errors. This keeps the ground-truth layer authoritative even when a provider emits
+an off-schema tool call.
+
+## 7. Honest determinism and known limits
+
+The Python safety checks, clinic state reset, mutation lock, and validation are
+deterministic. Hosted LLM tool selection, provider retries, latency, and natural
+language wording are not guaranteed deterministic even at temperature zero. The
+runner records the result of three repetitions, and the UI describes this as
+provider-dependent rather than claiming universal stability. The emergency
+pre-screen covers the tested clinical patterns; expanding semantic coverage is a
+future improvement and not represented as an infallibility claim.

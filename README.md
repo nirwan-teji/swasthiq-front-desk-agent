@@ -1,15 +1,15 @@
 # SwasthiQ Clinic Front Desk Agent
 
-> Production-grade, deterministic AI front-desk agent for **Sunrise Clinic, Dehradun**, handling multilingual/Hinglish appointment booking, rescheduling, cancellations, and clinical emergency escalations with zero hallucinations.
+> Safety-first AI front-desk agent for **Sunrise Clinic, Dehradun**, handling multilingual/Hinglish appointment booking, rescheduling, cancellations, and clinical emergency escalations with tool-grounded results.
 
 ---
 
 ## 🌟 Highlights
 
-- **100% Infallible Safety (Hard Rule)**: Deterministic pre-screening intercepts clinical emergencies (chest pain, breathing difficulties, stroke symptoms) in <50ms with zero reliance on LLM probabilistic outputs.
+- **Hard-rule safety boundary**: Deterministic pre-screening intercepts the covered clinical emergency patterns before any LLM call; unmatched clinical language remains a known limitation documented in `DECISIONS.md`.
 - **Hinglish Relative Date Engine**: Fully resolves colloquial expressions (`"aaj"`, `"kal"`, `"parso"`, `"tarson"`, `"somwar"`, `"budhwar"`, `"subah 10 baje"`) anchored strictly to the request's `"today"` date (never system clock).
 - **Concurrency & Double-Booking Proof**: Thread-safe in-memory state lock guarantees two racing conversations cannot double-book the same slot.
-- **Deterministic Evaluation**: Tested with `temperature=0.0` and verified via `python3 runner.py --repeat 3`.
+- **Repeatable evaluation**: Python state and tools reset per request; provider-backed tool selection is measured with `python3 runner.py --repeat 3` and reported as provider-dependent rather than guaranteed deterministic.
 - **Pixel-Accurate Frontend**: React 18 + Vite + TypeScript dashboard replicating the exact Handoff Queue and Conversation Detail screens from the design specification.
 - **Free-tier-friendly Tech Stack**: Groq Cloud (`openai/gpt-oss-120b`, retrying
   with `openai/gpt-oss-20b`) with optional Gemini (`gemini-2.0-flash`) fallback.
@@ -31,8 +31,8 @@
 ./run.sh
 ```
 This script automatically:
-1. Installs backend dependencies in a Python virtual environment.
-2. Installs frontend npm packages and builds the UI.
+1. Installs backend dependencies from `backend/requirements.txt`.
+2. Installs frontend npm packages and starts the Vite development UI.
 3. Launches the FastAPI server at `http://localhost:8000` (exposing `POST /agent/run`).
 4. Launches the Vite development server at `http://localhost:5173`.
 
@@ -41,7 +41,31 @@ This script automatically:
 cd backend
 python3 -m pytest -v
 ```
-*Result: 45/45 unit and contract tests passing in ~0.2s.*
+*Result: 47/47 unit and contract tests passing locally (provider-backed conversations are tested separately through `runner.py`).*
+
+## API contract and consistency guarantees
+
+The graded endpoint is `POST /agent/run` with JSON:
+
+```json
+{
+  "conversation_id": "cv_0001",
+  "today": "2026-10-01",
+  "turns": ["Dr. Rao ke saath appointment chahiye.", "Kal subah ho jayega?"]
+}
+```
+
+It returns the frozen structure in [`schema.md`](schema.md): the echoed conversation ID, ordered tool calls including failures, one terminal state, optional escalation reason and grounded IDs, the final reply, and `metrics` containing turns, tokens, and latency. The backend also exposes `/health`; the `/api/conversations*` routes are dashboard support routes and are not part of the graded agent contract.
+
+Consistency rules on mutation are enforced in `backend/app/database.py`:
+
+- `book_appointment` validates the patient, doctor, date, holiday, doctor availability, and slot while holding one lock around the collision check and insert. Two competing requests cannot both claim one slot.
+- `reschedule_appointment` requires the verified `patient_id`, validates the destination before changing anything, checks ownership and availability under the same lock, and leaves the original appointment untouched on any failure.
+- `cancel_appointment` requires and verifies the patient ID, and only changes an active appointment to `cancelled` after validation.
+- Every agent run creates a fresh copy of `clinic.json`, so one evaluation conversation cannot leak mutations into another.
+- Malformed tool arguments return explicit tool errors (for example, `Invalid date 'tomorrow'. Use YYYY-MM-DD...`) and are fed back to the agent; they do not become generic server errors or invented confirmations.
+
+For the complete field-level contract and enum definitions, see [`schema.md`](schema.md).
 
 ### 3. Run the Verification Runner
 ```bash

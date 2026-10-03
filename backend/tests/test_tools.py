@@ -162,6 +162,7 @@ def test_reschedule_success(state):
         appointment_id="ap_0001",
         new_date="2026-10-03",
         new_start="09:00",
+        patient_id="pt_0001",
     )
     assert "error" not in result
     assert result["status"] == "rescheduled"
@@ -174,6 +175,24 @@ def test_reschedule_unknown_appointment(state):
         new_start="09:00",
     )
     assert "error" in result
+
+
+def test_reschedule_requires_owner(state):
+    result = state.reschedule_appointment(
+        appointment_id="ap_0001",
+        new_date="2026-10-03",
+        new_start="09:00",
+        patient_id="pt_0013",
+    )
+    assert "error" in result
+    assert "not authorized" in result["error"]
+
+
+def test_tools_return_actionable_errors_for_malformed_dates(state):
+    result = state.search_slots("dr_rao", "tomorrow")
+    assert "YYYY-MM-DD" in result["error"]
+    result = state.book_appointment("pt_0001", "dr_rao", "2026-99-99", "09:00")
+    assert "YYYY-MM-DD" in result["error"]
 
 
 # ------------------------------------------------------------------ #

@@ -121,6 +121,26 @@ class ClinicState:
         dt = datetime.strptime(date_str, "%Y-%m-%d")
         return dt.strftime("%a")  # 'Mon', 'Tue', etc.
 
+    @staticmethod
+    def _validate_date(date_str: str) -> Optional[str]:
+        if not isinstance(date_str, str) or not date_str.strip():
+            return "date must be a non-empty string in YYYY-MM-DD format."
+        try:
+            datetime.strptime(date_str, "%Y-%m-%d")
+        except ValueError:
+            return f"Invalid date '{date_str}'. Use YYYY-MM-DD, for example 2026-10-03."
+        return None
+
+    @staticmethod
+    def _validate_start(start: str) -> Optional[str]:
+        if not isinstance(start, str) or not start.strip():
+            return "start must be a non-empty string in HH:MM 24-hour format."
+        try:
+            datetime.strptime(start, "%H:%M")
+        except ValueError:
+            return f"Invalid start time '{start}'. Use HH:MM 24-hour format, for example 09:30."
+        return None
+
     def _generate_slots(self, windows: list[dict], date_str: str) -> list[str]:
         """
         Generate all 15-minute slot start times from the doctor's windows for
@@ -161,6 +181,12 @@ class ClinicState:
         Returns available 15-minute slot start times for a doctor on a date.
         Checks: clinic holiday, doctor leave, and already-booked slots.
         """
+        if not isinstance(doctor_id, str) or not doctor_id.strip():
+            return {"error": "doctor_id must be a non-empty string.", "slots": []}
+        date_error = self._validate_date(date)
+        if date_error:
+            return {"error": date_error, "slots": []}
+
         doctor = self.get_doctor_by_id(doctor_id)
         if doctor is None:
             return {"error": f"Unknown doctor_id: {doctor_id}", "slots": []}
@@ -245,6 +271,16 @@ class ClinicState:
         not a holiday, doctor not on leave, slot not already taken.
         """
         with _lock:
+            for field_name, value in (("patient_id", patient_id), ("doctor_id", doctor_id)):
+                if not isinstance(value, str) or not value.strip():
+                    return {"error": f"{field_name} must be a non-empty string."}
+            date_error = self._validate_date(date)
+            if date_error:
+                return {"error": date_error}
+            start_error = self._validate_start(start)
+            if start_error:
+                return {"error": start_error}
+
             doctor = self.get_doctor_by_id(doctor_id)
             if doctor is None:
                 return {"error": f"Unknown doctor_id: {doctor_id}"}
@@ -298,12 +334,24 @@ class ClinicState:
         appointment_id: str,
         new_date: str,
         new_start: str,
+        patient_id: Optional[str] = None,
     ) -> dict:
         """
         Move an existing appointment to a new slot. Atomically frees old slot
         and claims new one.
         """
         with _lock:
+            if not isinstance(appointment_id, str) or not appointment_id.strip():
+                return {"error": "appointment_id must be a non-empty string."}
+            if not isinstance(patient_id, str) or not patient_id.strip():
+                return {"error": "patient_id is required to verify authorization for rescheduling."}
+            date_error = self._validate_date(new_date)
+            if date_error:
+                return {"error": f"new_date: {date_error}"}
+            start_error = self._validate_start(new_start)
+            if start_error:
+                return {"error": f"new_start: {start_error}"}
+
             ap = None
             for a in self._data["appointments"]:
                 if a["id"] == appointment_id and a["status"] == "booked":
@@ -312,6 +360,9 @@ class ClinicState:
 
             if ap is None:
                 return {"error": f"No active appointment found with id: {appointment_id}"}
+
+            if ap["patient_id"] != patient_id:
+                return {"error": "Appointment does not belong to the specified patient; rescheduling is not authorized."}
 
             doctor = self.get_doctor_by_id(ap["doctor_id"])
             if not self._is_clinic_open(new_date):
@@ -350,12 +401,16 @@ class ClinicState:
 
     def cancel_appointment(self, appointment_id: str, patient_id: Optional[str] = None) -> dict:
         """
-        Cancel an appointment. Optionally verify it belongs to patient_id.
+        Cancel an appointment after verifying it belongs to patient_id.
         """
         with _lock:
+            if not isinstance(appointment_id, str) or not appointment_id.strip():
+                return {"error": "appointment_id must be a non-empty string."}
+            if not isinstance(patient_id, str) or not patient_id.strip():
+                return {"error": "patient_id is required to verify authorization for cancellation."}
             for ap in self._data["appointments"]:
                 if ap["id"] == appointment_id and ap["status"] == "booked":
-                    if patient_id and ap["patient_id"] != patient_id:
+                    if ap["patient_id"] != patient_id:
                         return {"error": "Appointment does not belong to the specified patient."}
                     ap["status"] = "cancelled"
                     return {

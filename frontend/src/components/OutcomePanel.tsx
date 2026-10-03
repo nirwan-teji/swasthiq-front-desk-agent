@@ -86,11 +86,11 @@ export const OutcomePanel: React.FC<OutcomePanelProps> = ({ conversation }) => {
 
         <div className="det-badge">
           <CheckCircle2 size={16} />
-          <span>Same terminal state across 3 runs: STABLE</span>
+          <span>Python safety/tools repeatable; LLM path provider-dependent</span>
         </div>
 
         <p className="det-desc">
-          Enforced by Groq GPT-OSS-120B running at <code>temperature=0.0</code> and deterministic Python database tool state with atomic reset per request.
+          Safety interception, validation, and clinic state reset are deterministic. Hosted-model tool selection and latency are measured per run and are not a guarantee.
         </p>
       </div>
 

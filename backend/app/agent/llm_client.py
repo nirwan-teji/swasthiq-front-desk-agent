@@ -84,8 +84,9 @@ TOOL_DEFINITIONS_GROQ = [
                     "appointment_id": {"type": "string"},
                     "new_date": {"type": "string", "description": "YYYY-MM-DD"},
                     "new_start": {"type": "string", "description": "HH:MM 24-hour"},
+                    "patient_id": {"type": "string", "description": "Verified patient who owns the appointment"},
                 },
-                "required": ["appointment_id", "new_date", "new_start"],
+                "required": ["appointment_id", "new_date", "new_start", "patient_id"],
             },
         },
     },
@@ -98,9 +99,9 @@ TOOL_DEFINITIONS_GROQ = [
                 "type": "object",
                 "properties": {
                     "appointment_id": {"type": "string"},
-                    "patient_id": {"type": "string", "description": "Optional — for ownership verification"},
+                    "patient_id": {"type": "string", "description": "Verified patient who owns the appointment"},
                 },
-                "required": ["appointment_id"],
+                "required": ["appointment_id", "patient_id"],
             },
         },
     },
@@ -236,7 +237,8 @@ class GeminiClient:
             model_name=self._model_name,
             system_instruction=system_text,
         )
-        # No structured tool calling for Gemini in this simplified fallback
+        # Gemini fallback is text-only in this implementation. The orchestrator
+        # fails closed if it cannot obtain a structured tool call.
         prompt = history[-1]["parts"][0] if history else ""
         chat_sess = model.start_chat(history=history[:-1])
         response = chat_sess.send_message(prompt)

@@ -44,6 +44,15 @@ def _validate_grounded_ids(
 
 def _dispatch_tool(state: ClinicState, name: str, arguments: dict) -> Any:
     """Execute a tool call against the clinic state and return the result dict."""
+    if not isinstance(arguments, dict):
+        return {
+            "error": (
+                f"Malformed arguments for {name}: expected a JSON object, "
+                f"received {type(arguments).__name__}."
+            )
+        }
+    if "error" in arguments:
+        return {"error": str(arguments["error"])}
     if name == "search_slots":
         return state.search_slots(
             doctor_id=arguments.get("doctor_id", ""),
@@ -66,6 +75,7 @@ def _dispatch_tool(state: ClinicState, name: str, arguments: dict) -> Any:
             appointment_id=arguments.get("appointment_id", ""),
             new_date=arguments.get("new_date", ""),
             new_start=arguments.get("new_start", ""),
+            patient_id=arguments.get("patient_id"),
         )
     elif name == "cancel_appointment":
         return state.cancel_appointment(
@@ -270,10 +280,16 @@ def run(
         # Execute each tool call and feed results back
         for tc in tool_calls_in_msg:
             fn_name = tc["function"]["name"]
+            raw_args = tc.get("function", {}).get("arguments", "")
             try:
-                fn_args = json.loads(tc["function"]["arguments"])
-            except json.JSONDecodeError:
-                fn_args = {}
+                fn_args = json.loads(raw_args)
+            except (TypeError, json.JSONDecodeError):
+                fn_args = {
+                    "error": (
+                        "Malformed tool arguments: expected valid JSON object; "
+                        f"received {raw_args!r}."
+                    )
+                }
 
             # Execute
             result = _dispatch_tool(state, fn_name, fn_args)
