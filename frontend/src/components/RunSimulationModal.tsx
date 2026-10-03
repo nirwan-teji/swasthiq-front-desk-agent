@@ -10,6 +10,11 @@ interface RunSimulationModalProps {
 }
 
 const PRESET_SCRIPTS = [
+  { id: 'adv_concurrent_booking', name: 'ADVERSARIAL — Concurrent Double Booking', concurrency: true, today: '2026-10-01', turns: [
+    'Mujhe Dr. Rao ke saath 5 October 2026 ko 09:15 baje appointment chahiye.',
+    'Rajesh Kumar Sharma, 9812200011.',
+    'Haan, isi slot ko book kar dijiye.'
+  ]},
   { id: 'cv_0011', name: 'cv_0011 — Clinical Emergency (Chest Pain)', today: '2026-10-01', turns: [
     'Dr. Rao ke saath kal ka appointment chahiye tha.',
     'Subah 10 baje.',
@@ -51,6 +56,7 @@ export const RunSimulationModal: React.FC<RunSimulationModalProps> = ({
   const [turnsText, setTurnsText] = useState(PRESET_SCRIPTS[0].turns.join('\n'));
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [concurrencyResults, setConcurrencyResults] = useState<Array<{ label: string; state: string; appointmentId?: string | null; error?: string }>>([]);
 
   if (!isOpen) return null;
 
@@ -61,42 +67,73 @@ export const RunSimulationModal: React.FC<RunSimulationModalProps> = ({
       setConversationId(found.id);
       setToday(found.today);
       setTurnsText(found.turns.join('\n'));
+      setConcurrencyResults([]);
+      setError(null);
     }
   };
+
+  const toRecord = (res: any, id: string, turns: string[]): AgentRunRecord => ({
+    id: res.conversation_id || id,
+    caller_preview: turns[0] || 'Simulation run',
+    turns_count: turns.length,
+    today,
+    terminal_state: res.terminal_state,
+    escalation_reason: res.escalation_reason,
+    patient_id: res.patient_id,
+    appointment_id: res.appointment_id,
+    reply: res.reply,
+    tool_calls: (res.tool_calls || []).map((tc: any) => ({
+      name: tc.name || tc.tool,
+      arguments: tc.arguments || tc.input,
+      result: tc.result ?? tc.output ?? null
+    })),
+    metrics: res.metrics,
+    created_at: new Date().toISOString(),
+    resolved: false,
+    raw_turns: turns
+  });
 
   const handleExecute = async () => {
     setIsLoading(true);
     setError(null);
+    setConcurrencyResults([]);
     try {
       const turns = turnsText.split('\n').map(t => t.trim()).filter(Boolean);
+
+      if (selectedPreset === 'adv_concurrent_booking') {
+        const requests = ['a', 'b'].map(suffix => runAgentSimulation({
+          conversation_id: `${conversationId}_${suffix}`,
+          today,
+          turns,
+        }));
+        const settled = await Promise.allSettled(requests);
+        const summary = settled.map((result, index) => result.status === 'fulfilled'
+          ? {
+              label: `Request ${index + 1}`,
+              state: result.value.terminal_state,
+              appointmentId: result.value.appointment_id,
+            }
+          : {
+              label: `Request ${index + 1}`,
+              state: 'request_failed',
+              error: result.reason?.message || 'Request failed',
+            });
+        setConcurrencyResults(summary);
+        settled.forEach((result, index) => {
+          if (result.status === 'fulfilled') {
+            onSimulationComplete(toRecord(result.value, `${conversationId}_${index + 1}`, turns));
+          }
+        });
+        return;
+      }
+
       const res = await runAgentSimulation({
         conversation_id: conversationId,
         today,
         turns
       });
 
-      const newRecord: AgentRunRecord = {
-        id: res.conversation_id || conversationId,
-        caller_preview: turns[0] || 'Simulation run',
-        turns_count: turns.length,
-        today,
-        terminal_state: res.terminal_state,
-        escalation_reason: res.escalation_reason,
-        patient_id: res.patient_id,
-        appointment_id: res.appointment_id,
-        reply: res.reply,
-        tool_calls: (res.tool_calls || []).map((tc: any) => ({
-          name: tc.name || tc.tool,
-          arguments: tc.arguments || tc.input,
-          result: tc.result ?? tc.output ?? null
-        })),
-        metrics: res.metrics,
-        created_at: new Date().toISOString(),
-        resolved: false,
-        raw_turns: turns
-      };
-
-      onSimulationComplete(newRecord);
+      onSimulationComplete(toRecord(res, conversationId, turns));
       onClose();
     } catch (err: any) {
       setError(err.message || 'Simulation execution failed');
@@ -179,6 +216,27 @@ export const RunSimulationModal: React.FC<RunSimulationModalProps> = ({
             </span>
           )}
         </button>
+
+        {concurrencyResults.length > 0 && (
+          <div style={{ marginTop: '1rem', padding: '0.85rem', border: '1px solid #f59e0b', borderRadius: '6px', background: 'rgba(245,158,11,0.1)' }}>
+            <strong>Concurrency result</strong>
+            <p style={{ margin: '0.45rem 0', fontSize: '0.82rem' }}>
+              Expected: exactly one request should be <code>booked</code>; the other should fail because the slot is already claimed.
+            </p>
+            {concurrencyResults.map(result => (
+              <div key={result.label} style={{ fontSize: '0.82rem', marginTop: '0.3rem' }}>
+                {result.label}: <strong>{result.state}</strong>
+                {result.appointmentId ? ` (${result.appointmentId})` : ''}
+                {result.error ? ` — ${result.error}` : ''}
+              </div>
+            ))}
+            {concurrencyResults.filter(result => result.state === 'booked').length === 2 && (
+              <div style={{ color: '#f87171', marginTop: '0.5rem', fontWeight: 600 }}>
+                Broken: both requests booked the same slot.
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
